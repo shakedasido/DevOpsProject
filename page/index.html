@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html lang="en" >
+<head>
+  <meta charset="UTF-8">
+  <title>Programmers network</title>
+  <link rel="stylesheet" href="getstyle">
+<script>
+function clean(str)
+{
+   for(var i=0; i < str.length ; i++)
+   {
+      if (str[i]<'a' || str[i]>'z')
+      {
+         if (str[i]<'A' || str[i]>'Z')
+         {
+            if (str[i]<'0' || str[i]>'9')
+            {
+               if(str[i]!= '@' && str[i]!= '.')
+               {
+                  return false;
+               }
+            }
+         }
+      }
+   }
+   return true;
+}
+function clean_fullname(str)
+{
+   for(var i=0; i < str.length ; i++)
+   {
+      if (str[i]<'a' || str[i]>'z')
+      {
+         if (str[i]<'A' || str[i]>'Z')
+         {
+            if (str[i]<'0' || str[i]>'9')
+            {
+               if(str[i]!= '@' && str[i]!= '.')
+               {
+                  if(str[i] == ' ' && str.indexOf(' ') == str.lastIndexOf(' '))
+                  {
+                     continue;
+                  }
+                  else
+                  {
+                     return false;
+                  }
+               }
+            }
+         }
+      }
+   }
+   return true;
+}
+function Delete(p) {
+    var xhr = new XMLHttpRequest();
+    xhr.open('POST', '/update_post_data');
+    xhr.setRequestHeader("Accept", "application/json");
+    xhr.setRequestHeader("Content-Type", "application/json");
+
+    xhr.onload = function () {
+        var t = JSON.parse(this.responseText);
+        if (t.response === '0')
+        {
+            alert("Deleted successfully");
+            location.reload();
+        }
+        else
+        {
+            alert("Error occured");
+        }
+    };
+
+    xhr.send(JSON.stringify({
+      "action": "delete",
+      "post": p
+    }));
+}
+function loadPage() {
+    var xhr = new XMLHttpRequest();
+    xhr.open('POST', '/page_loader');
+    xhr.setRequestHeader("Accept", "application/json");
+    xhr.setRequestHeader("Content-Type", "application/json");
+
+    xhr.onload = function () {
+        var t = JSON.parse(this.responseText);
+        document.getElementById("page_content").innerHTML = (t.response);
+    };
+
+    xhr.send(JSON.stringify({
+      "info": "registerpage"
+    }));
+}
+function sendRegister() 
+{
+    document.getElementById("error_box").innerHTML = "";
+    var uname = document.getElementById("username");
+    var exam1 = document.getElementById("exam1");
+    var exam2 = document.getElementById("exam2");
+    var exam3 = document.getElementById("exam3");
+    var tBool = true;
+
+  if (uname.value.length < 3 || isNaN(parseInt(exam1.value)) || parseInt(exam1.value) < 0 || parseInt(exam1.value) > 100 || isNaN(parseInt(exam2.value)) || parseInt(exam2.value) < 0 || parseInt(exam2.value) > 100 || isNaN(parseInt(exam3.value)) || parseInt(exam3.value) < 0 || parseInt(exam3.value) > 100)
+  { 
+	  document.getElementById("error_box").innerHTML += "Minimum length of the Student's name is 3<br />Grades must be between 0-100<br />";
+    tBool = false;
+
+  }
+  if (!clean(uname) || !clean(exam1) || !clean(exam2) || !clean(exam3))
+  {
+    document.getElementById("error_box").innerHTML += "Error! You can only use English letter or numbers.<br />";
+    tBool = false;
+  }
+  if (tBool)
+  {
+	var xhr = new XMLHttpRequest();
+    xhr.open('POST', '/process_post_req');
+    xhr.setRequestHeader("Accept", "application/json");
+    xhr.setRequestHeader("Content-Type", "application/json");
+    xhr.onload = function () {
+        var t = JSON.parse(this.responseText);
+        if(t.response === "1")
+          alert('Error happened');
+        else if (t.response === "0")
+        {
+          alert("Successfully added");
+          location.reload();
+        }
+    };
+    xhr.send(JSON.stringify({
+        "username": uname.value,
+        "exam1": exam1.value,
+        "exam2": exam2.value,
+        "exam3": exam3.value,
+        "action": "process_register"
+    }));
+    }
+}
+</script>
+</head>
+<body onload="loadPage();">
+<div class="background">
+        <div class="shape"></div>
+        <div class="shape"></div>
+    </div>
+    <form onsubmit="return false" action="">
+        <h3>GRADES SHEET</h3>
+
+        <label for="username">Student name</label>
+        <input type="text" maxlength="30" placeholder="Username" id="username">
+
+        <label for="exam1">Exam 1</label>
+        <input type="text" maxlength="3" placeholder="exam1" id="exam1">
+
+        <label for="exam2">Exam 2</label>
+        <input type="text" maxlength="3" placeholder="exam2" id="exam2">
+
+        <label for="exam3">Exam 3</label>
+        <input type="text" maxlength="3" placeholder="exam3" id="exam3">
+	<div id="error_box" class="error_box"></div>
+        <button onclick="sendRegister()">Add</button>
+        
+        </div>
+    </form>
+  <div id="page_content"></div>
+</body>
+</html>
+
