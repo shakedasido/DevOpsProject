@@ -60,6 +60,7 @@ app.post('/update_post_data', async (req, res) => {
       if (webData.post !== undefined && clean(webData.post)) {
          client.query('DELETE FROM grades WHERE uid= $1', [webData.post]);
          const obj = '{"response": "0"}';
+
          res.send(obj);
       }
    }
@@ -71,23 +72,19 @@ app.post('/page_loader', async (req, res) => {
    const data = req.body;
    const webData = data;
    if (webData.info !== undefined && webData.info === 'registerpage') {
-      var strToSend = "";
-      strToSend = `${strToSend}<div style=\\"text-align:center;\\">`;
+      let strToSend = "";
       let res1 = await client.query('SELECT * FROM grades'); // DATABASE CONNECTION ARE IN DIFFERENT THREADS, NEED MANUAL TERAPY
       strToSend += '<table border=\\"1\\"><tr><td>Student name</td><td>Exam 1</td><td>Exam 2</td><td>Exam 3</td><td>Delete</td></tr>';
       for (let i = 0; i < res1.rows.length; i += 1) {
+         // Add elments to the students table
          strToSend += '<tr>';
-         // build the server
          strToSend = `${strToSend}<td>${res1.rows[i].username}</td><td>${res1.rows[i].exam1}</td><td>${res1.rows[i].exam2}</td><td>${res1.rows[i].exam3}</td><td><input type=\\"button\\" value=\\"Delete\\" onclick=\\"Delete('${res1.rows[i].uid}')\\"></td>`;
          strToSend += '</tr>';
       }
-      //strToSend += '<tr>';
-      //strToSend += '<td><input type="text" maxlength="30" placeholder="Username" id="username"></td></td><td></td><td></td>';
-      //strToSend += '</tr>';
       strToSend += '</table>';
-      strToSend += '</div>';
       const obj = `{"response": "${strToSend}"}`;
       res.send(obj);
+      
    }
 });
 
@@ -107,7 +104,7 @@ app.post('/process_post_req', async (req, res) => {
          const exam3 = webData.exam3;
          let tBool = true;
 
-         if (uname.length < 3 || uname.length > 30 || isNaN(parseInt(exam1)) || parseInt(exam1) < 0 || parseInt(exam1) > 100 || isNaN(parseInt(exam2)) || parseInt(exam2) < 0 || parseInt(exam2) > 100 || isNaN(parseInt(exam3)) || parseInt(exam3) < 0 || parseInt(exam3) > 100 || exam1.length >3 || exam2.length >3 || exam3.length >3) {
+         if (uname.length < 3 || uname.length > 25 || isNaN(parseInt(exam1)) || parseInt(exam1) < 0 || parseInt(exam1) > 100 || isNaN(parseInt(exam2)) || parseInt(exam2) < 0 || parseInt(exam2) > 100 || isNaN(parseInt(exam3)) || parseInt(exam3) < 0 || parseInt(exam3) > 100 || exam1.length >3 || exam2.length >3 || exam3.length >3) {
             tBool = false;
          }
          if (!clean(uname) && !clean(exam1) && !clean(exam2) && !clean(exam3)) {
