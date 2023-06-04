@@ -1,7 +1,5 @@
 import express from 'express';
 import pkg from 'pg';
-import session from 'express-session';
-import cookieParser from 'cookie-parser';
 
 const { Client } = pkg;
 
@@ -18,12 +16,6 @@ client.connect();
 const port = process.env.PORT || 80;
 const app = express();
 app.use(express.json());
-app.use(cookieParser());
-app.use(session({
-   secret: 'asdfkml5rtythytt6onjghfojfdpflhplp9trd7htru5u4969u',
-   saveUninitialized: false,
-   resave: false,
-}));
 
 function clean(str) {
    for (let i = 0; i < str.length; i += 1) {
@@ -46,10 +38,6 @@ app.get('/', (req, res) => {
 
 app.get('/getstyle', (req, res) => {
    res.sendFile('style/style.css', { root: './' });
-});
-
-app.get('/getjs', (req, res) => {
-   res.sendFile('js/scripts.js', { root: './' });
 });
 
 app.post('/update_post_data', async (req, res) => {

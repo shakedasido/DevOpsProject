@@ -1,4 +1,5 @@
-In this repository (first sprint) we set up the server and added home page and login page.
+In this repository, we set up the server and added the grades sheet page,
+with the option of adding anoter student with his/hers's 3 grades.
 
 Set up and run project:
 
