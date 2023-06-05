@@ -21,7 +21,7 @@ form {
 }
 form *{
     font-family: 'Gill Sans', Calibri, 'Trebuchet MS', sans-serif;
-    color: #555;
+    color: #313030;
     letter-spacing: 0.3px;
     outline: none;
     border: none;
@@ -52,7 +52,7 @@ input {
     max-width: 150px;                                  
 }
 ::placeholder {
-    color: #4b454a50;
+    color: #4b454a69;
 }
 button{
     font-family: 'Gill Sans', Calibri, 'Trebuchet MS', sans-serif;
