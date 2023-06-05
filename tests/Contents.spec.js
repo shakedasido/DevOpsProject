@@ -1,6 +1,6 @@
 import {expect} from "chai";
 import request from 'supertest';
-import app from '../server';
+import app from '../src/index';
 
 describe('Test suit 1:', () => {
   test('test 1:', async () => {
