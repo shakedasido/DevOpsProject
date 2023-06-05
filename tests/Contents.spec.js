@@ -4,6 +4,14 @@ import {app} from '../src/index.js';
 
 
 describe('Main page', async () =>{
+    let server;
+    before((done) => {
+        server = app.listen(80, done);
+    });
+    
+      after((done) => {
+        server.close(done);
+    });
     it('Test 1', async () =>{
         const res = await request(app).get('/');
         expect(res.statusCode).to.be.eql(200);
@@ -13,7 +21,7 @@ describe('Main page', async () =>{
         expect(res.statusCode).to.be.eql(404);
     })
 })
-process.exit(0);
+// process.exit(0);
 
 
 
