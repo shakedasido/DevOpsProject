@@ -13,9 +13,10 @@ describe('Main page', async () =>{
     it('Test 2', async () =>{
         const res = await request(app).get('/3485');
         expect(res.statusCode).to.be.eql(404);
+    })
+    it('exit', async () =>{
         process.exit(0);
     })
-    
 })
 
 
