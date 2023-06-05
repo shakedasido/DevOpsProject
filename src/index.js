@@ -14,7 +14,7 @@ const client = new Client({
 
 client.connect();
 const port = process.env.PORT || 80;
-const app = express();
+export const app = express();
 app.use(express.json());
 
 function clean(str) {
@@ -113,4 +113,3 @@ app.listen(port, () => {
    console.log(`Listening on port ${port}`);
 });
 
-module.exports = app; //
