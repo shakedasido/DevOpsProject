@@ -3,7 +3,7 @@ import request from 'supertest';
 import {app} from '../src/index.js';
 
 
-describe('Main page', () =>{
+describe('Main page', async () =>{
     it('Test 1', async () =>{
         const res = await request(app).get('/');
         expect(res.statusCode).to.be.eql(200);
