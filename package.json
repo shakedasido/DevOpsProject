@@ -1,7 +1,7 @@
 {
-  "name": "cicd_sprint1",
+  "name": "devops_project",
   "version": "1.0.0",
-  "description": "Sprint1 - Building WEB ",
+  "description": "Grades sheet - Each student has 3 Exams grades",
   "main": "index.js",
   "type": "module",
   "scripts": {
@@ -12,22 +12,18 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/JuniYou/CICD_Sprint1.git"
+    "url": "git+https://github.com/shakedasido/DevOpsProject"
   },
-  "author": "Shaked Asido, Michael Klaiman, Lir Goffer, Eli Ben Aharon, Yair Davidof, Koral Amrusi",
+  "author": "Shaked Asido, Michael Klaiman",
   "license": "ISC",
   "bugs": {
-    "url": "https://github.com/JuniYou/CICD_Sprint1/issues"
+    "url": "https://github.com/shakedasido/DevOpsProject/issues"
   },
-  "homepage": "https://github.com/JuniYou/CICD_Sprint1#readme",
+  "homepage": "https://github.com/shakedasido/DevOpsProject#readme",
   "dependencies": {
     "body-parser": "^1.20.2",
-    "cookie-parser": "^1.4.6",
     "express": "^4.18.2",
-    "express-session": "^1.17.3",
-    "ip": "^1.1.8",
     "pg": "^8.10.0",
-    "request-ip": "^3.3.0",
     "xhr2": "^0.2.1"
   },
   "devDependencies": {
