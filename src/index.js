@@ -112,3 +112,5 @@ app.post('/process_post_req', async (req, res) => {
 app.listen(port, () => {
    console.log(`Listening on port ${port}`);
 });
+
+module.exports = app; //
