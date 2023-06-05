@@ -1,9 +1,9 @@
 {
-  "type":"module",
   "name": "devopsproject",
   "version": "1.0.0",
   "description": "Grades sheet of student. each stusent has 3 exams grades",
   "main": "index.js",
+  "type":"module",
   "directories": {
     "test": "tests"
   },
@@ -338,7 +338,10 @@
     "mocha": "^10.2.0"
   },
   "scripts": {
-    "test": "mocha"
+    "dev": "nodemon src/index.js",
+    "start": "node src/index.js",
+    "lint": "eslint src/* --color",
+    "test": "npx mocha tests/*.spec.js --color"
   },
   "repository": {
     "type": "git",
