@@ -41,7 +41,6 @@ app.get('/getstyle', (req, res) => {
 });
 
 app.post('/update_post_data', async (req, res) => {
-
    const data = req.body;
    const webData = data;
    if (webData.action !== undefined && webData.action === 'delete') {
@@ -52,16 +51,15 @@ app.post('/update_post_data', async (req, res) => {
          res.send(obj);
       }
    }
-
 });
 
-//The server return table of grades
+// The server return table of grades
 app.post('/page_loader', async (req, res) => {
    const data = req.body;
    const webData = data;
    if (webData.info !== undefined && webData.info === 'registerpage') {
-      let strToSend = "";
-      let res1 = await client.query('SELECT * FROM grades'); // DATABASE CONNECTION ARE IN DIFFERENT THREADS, NEED MANUAL TERAPY
+      let strToSend = '';
+      const res1 = await client.query('SELECT * FROM grades'); // DATABASE CONNECTION ARE IN DIFFERENT THREADS, NEED MANUAL TERAPY
       strToSend += '<table border=\\"1\\"><tr><td>Student name</td><td>Exam 1</td><td>Exam 2</td><td>Exam 3</td><td>Delete</td></tr>';
       for (let i = 0; i < res1.rows.length; i += 1) {
          // Add elments to the students table
@@ -72,7 +70,6 @@ app.post('/page_loader', async (req, res) => {
       strToSend += '</table>';
       const obj = `{"response": "${strToSend}"}`;
       res.send(obj);
-      
    }
 });
 
@@ -87,12 +84,12 @@ app.post('/process_post_req', async (req, res) => {
       // Register
       if (type !== undefined && type === 'process_register' && webData.username !== undefined && webData.exam1 !== undefined && webData.exam2 !== undefined && webData.exam3 !== undefined) {
          const uname = webData.username;
-         const exam1 = webData.exam1;
-         const exam2 = webData.exam2;
-         const exam3 = webData.exam3;
+         const { exam1 } = webData;
+         const { exam2 } = webData;
+         const { exam3 } = webData;
          let tBool = true;
 
-         if (uname.length < 3 || uname.length > 25 || isNaN(parseInt(exam1)) || parseInt(exam1) < 0 || parseInt(exam1) > 100 || isNaN(parseInt(exam2)) || parseInt(exam2) < 0 || parseInt(exam2) > 100 || isNaN(parseInt(exam3)) || parseInt(exam3) < 0 || parseInt(exam3) > 100 || exam1.length >3 || exam2.length >3 || exam3.length >3) {
+         if (uname.length < 3 || uname.length > 25 || Number.isNaN(parseInt(exam1, 10)) || parseInt(exam1, 10) < 0 || parseInt(exam1, 10) > 100 || Number.isNaN(parseInt(exam2, 10)) || parseInt(exam2, 10) < 0 || parseInt(exam2, 10) > 100 || Number.isNaN(parseInt(exam3, 10)) || parseInt(exam3, 10) < 0 || parseInt(exam3, 10) > 100 || exam1.length > 3 || exam2.length > 3 || exam3.length > 3) {
             tBool = false;
          }
          if (!clean(uname) && !clean(exam1) && !clean(exam2) && !clean(exam3)) {
@@ -112,4 +109,3 @@ app.post('/process_post_req', async (req, res) => {
 app.listen(port, () => {
    console.log(`Listening on port ${port}`);
 });
-

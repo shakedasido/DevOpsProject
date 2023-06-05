@@ -21,7 +21,9 @@
         "no-param-reassign": "off",
         "no-unused-vars": "off",
         "no-undef": "off",
-        "camelcase": "off"
+        "no-console": "off",
+        "camelcase": "off",
+        "import/prefer-default-export": "off"
     }
     
     
